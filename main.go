@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/signal"
 
 	"github.com/joho/godotenv"
 
@@ -36,4 +37,11 @@ func main() {
 		fmt.Println(err)
 	}
 	myLogger.Log("this is a test")
+
+	//make it stay running
+
+	sigint := make(chan os.Signal, 1)
+	signal.Notify(sigint, os.Interrupt)
+	<-sigint
+
 }
